@@ -4,17 +4,27 @@ class ProductsManager {
     async findAll(obj) {
         const { limit = 20, page = 1, sort, ...filter } = obj;
         const sortOption = sort ? { price: sort } : null;
-        const response = await productsModel.paginate(filter, { limit, page, sort: sortOption });
-        const info = {
-            count: response.totalDocs,
-            pages: response.totalPages,
-            next: response.hasNextPage ?
-                `http://localhost:8080/api/products?page=${response.nextPage}` : null,
-            prev: response.hasPrevPage ?
-                `http://localhost:8080/api/products?page=${response.prevPage}` : null,
-        };
-        const results = response.docs;
-        return { info, results };
+        try {
+            const response = await productsModel.paginate(filter, { limit, page, sort: sortOption, lean: true });
+            return {
+                status: 'success',
+                payload: response.docs,
+                count: response.totalDocs,
+                totalPages: response.totalPages,
+                prevPage: response.hasPrevPage,
+                nextPage: response.hasNextPage,
+                next: response.hasNextPage ?
+                    `http://localhost:8080/api/products?page=${response.nextPage}` : null,
+                prev: response.hasPrevPage ?
+                    `http://localhost:8080/api/products?page=${response.prevPage}` : null,
+            };
+        } catch (error) {
+            console.log(error)
+            return {
+                status: 'error'
+            }
+        }
+
     }
 
     async findById(id) {
