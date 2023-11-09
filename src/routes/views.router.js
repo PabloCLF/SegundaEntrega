@@ -7,9 +7,11 @@ router.get("/products", async(req, res) => {
 
     try {
         const result = await productsManager.findAll(req.query);
-        console.log(result.payload)
         res.render("products", {
-            products: (result.payload)
+            products: (result.payload),
+            nextPage: result.nextPage,
+            prevPage: result.prevPage
+
         });
     } catch (err) {
         res.status(500).json({ error: err.message });

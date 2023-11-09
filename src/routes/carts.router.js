@@ -30,6 +30,18 @@ router.put("/:idCart/products/:idProduct", async(req, res) => {
     }
 });
 
+router.put("/:idCart", async(req, res) => {
+    const { idCart } = req.params;
+    const { products } = req.body;
+
+    try {
+        await cartsManager.addProductsToCart(idCart, products);
+        res.status(200).json({ message: "Products added" });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 router.delete("/:idCart/products/:idProduct", async(req, res) => {
     const { idCart, idProduct } = req.params;
     try {

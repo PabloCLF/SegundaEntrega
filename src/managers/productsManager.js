@@ -14,9 +14,9 @@ class ProductsManager {
                 prevPage: response.hasPrevPage,
                 nextPage: response.hasNextPage,
                 next: response.hasNextPage ?
-                    `http://localhost:8080/api/products?page=${response.nextPage}` : null,
+                    `http://localhost:8080/products?page=${response.nextPage}` : null,
                 prev: response.hasPrevPage ?
-                    `http://localhost:8080/api/products?page=${response.prevPage}` : null,
+                    `http://localhost:8080/products?page=${response.nextPage}` : null,
             };
         } catch (error) {
             console.log(error)
