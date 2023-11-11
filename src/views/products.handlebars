@@ -1,6 +1,6 @@
-<h2>Bienvenido</h2>
-{{!-- Cart Id: <input type="text">
-<button>Set</button> --}}
+<h2>WELCOME {{user.first_name}}</h2>
+<h4>Your email is: {{user.email}} </h4>
+
 <h4>Productos disponibles:</h4>
 {{#each products}}
 <div>
@@ -20,3 +20,5 @@
 <form action="{{nextPage}}" method="get">
 <input type="submit" value="Next Page"></input>
 </form>
+
+<button><a href="/api/sessions/signout">SIGN OUT</a></button>

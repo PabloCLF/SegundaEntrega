@@ -5,12 +5,17 @@ const router = Router();
 
 router.get("/products", async(req, res) => {
 
+    if (!req.session.user) {
+        return res.redirect("/login");
+    }
+
     try {
         const result = await productsManager.findAll(req.query);
         res.render("products", {
             products: (result.payload),
             nextPage: result.nextPage,
-            prevPage: result.prevPage
+            prevPage: result.prevPage,
+            user: req.session.user
 
         });
     } catch (err) {
