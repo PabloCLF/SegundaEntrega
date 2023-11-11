@@ -40,7 +40,7 @@ router.post("/login", async(req, res) => {
         const sessionInfo =
             email === "adminCoder@coder.com" && password === "adminCod3r123" ? { email, first_name: user.first_name, isAdmin: true } : { email, first_name: user.first_name, isAdmin: false };
         req.session.user = sessionInfo;
-        res.redirect("/profile");
+        res.redirect("/products");
     } catch (error) {
         res.status(500).json({ error });
     }
